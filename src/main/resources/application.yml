@@ -1,1 +1,12 @@
-spring.application.name=spring-loja-virtual
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/loja_virtual_database
+    username: docker
+    password: docker
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    #open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
