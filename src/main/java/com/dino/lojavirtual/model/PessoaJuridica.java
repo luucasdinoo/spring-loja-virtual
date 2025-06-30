@@ -1,19 +1,16 @@
 package com.dino.lojavirtual.model;
 
-import jakarta.persistence.*;
-
-import java.util.Objects;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "pessoa_juridica")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@SequenceGenerator(name = "seq_pessoa_juridica", sequenceName = "seq_pessoa_juridica", allocationSize = 1)
+@PrimaryKeyJoinColumn(name = "id")
 public class PessoaJuridica extends Pessoa{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_pessoa_juridica")
-    private Long id;
-
+    @Column(nullable = false)
     private String cnpj;
 
     @Column(name = "insc_estadual")
@@ -31,14 +28,6 @@ public class PessoaJuridica extends Pessoa{
     private String categoria;
 
     public PessoaJuridica() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCnpj() {
         return cnpj;
@@ -86,17 +75,5 @@ public class PessoaJuridica extends Pessoa{
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        PessoaJuridica that = (PessoaJuridica) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
     }
 }
