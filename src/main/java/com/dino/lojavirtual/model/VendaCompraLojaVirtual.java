@@ -28,7 +28,7 @@ public class VendaCompraLojaVirtual implements Serializable {
     @JoinColumn(name = "endereco_cobranca_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "endereco_cobranca_fk"))
     private Endereco enderecoCobranca;
 
-    @Column(name = "valor_total")
+    @Column(name = "valor_total",  nullable = false)
     private BigDecimal valorTotal;
 
     @Column(name = "valor_desconto")
@@ -43,21 +43,21 @@ public class VendaCompraLojaVirtual implements Serializable {
     private NotaFiscalVenda notaFiscalVenda;
 
     @ManyToOne
-    @JoinColumn(name = "cup_desc_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "cup_desc_fk"))
+    @JoinColumn(name = "cup_desc_id",foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "cup_desc_fk"))
     private CupDesc cupDesc;
 
-    @Column(name = "valor_frete")
+    @Column(name = "valor_frete", nullable = false)
     private BigDecimal valorFrete;
 
-    @Column(name = "dia_entrega")
+    @Column(name = "dia_entrega", nullable = false)
     private Integer diaEntrega;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "data_venda")
+    @Column(name = "data_venda", nullable = false)
     private Date dataVenda;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "data_entrega")
+    @Column(name = "data_entrega", nullable = false)
     private Date dataEntrega;
 
     public VendaCompraLojaVirtual(){}

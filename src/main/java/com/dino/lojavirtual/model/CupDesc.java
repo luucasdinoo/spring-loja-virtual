@@ -16,7 +16,7 @@ public class CupDesc implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_cup_desc")
     private Long id;
 
-    @Column(name = "cod_desc")
+    @Column(name = "cod_desc", nullable = false)
     private String codDesc;
 
     @Column(name = "valor_real_desc")
@@ -25,7 +25,7 @@ public class CupDesc implements Serializable {
     @Column(name = "valor_porcent_desc")
     private BigDecimal valorPorcentDesc;
 
-    @Column(name = "data_validade_cupom")
+    @Column(name = "data_validade_cupom", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataValidadeCupom;
 

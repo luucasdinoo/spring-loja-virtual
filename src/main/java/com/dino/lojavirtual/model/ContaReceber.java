@@ -17,12 +17,14 @@ public class ContaReceber implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_receber")
     private Long id;
 
+    @Column(nullable = false)
     private String descricao;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private StatusContaReceber status;
 
-    @Column(name = "dt_vencimento")
+    @Column(name = "dt_vencimento", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dtVencimento;
 
@@ -30,7 +32,7 @@ public class ContaReceber implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dtPagamento;
 
-    @Column(name = "valor_total")
+    @Column(name = "valor_total", nullable = false)
     private BigDecimal valorTotal;
 
     @Column(name = "valor_desconto")

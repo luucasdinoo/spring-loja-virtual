@@ -15,18 +15,24 @@ public class Endereco implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_endereco")
     private Long id;
 
+    @Column(nullable = false)
     private String rua;
 
+    @Column(nullable = false)
     private String cep;
 
+    @Column(nullable = false)
     private String numero;
 
     private String complemento;
 
+    @Column(nullable = false)
     private String bairro;
 
+    @Column(nullable = false)
     private String uf;
 
+    @Column(nullable = false)
     private String cidade;
 
     @ManyToOne(targetEntity = Pessoa.class)
@@ -34,6 +40,7 @@ public class Endereco implements Serializable {
     private Pessoa pessoa;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_endereco", nullable = false)
     private TipoEndereco tipoEndereco;
 
     public Endereco() {}
