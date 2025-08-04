@@ -1,12 +1,56 @@
+server:
+  servlet:
+    context-path: /loja_virtual # Prefixo na URL base onde sua aplicação estará disponível.
+    session:
+      timeout: 240m # Tempo de expiração da sessão do usuário (240 minutos)
+  compression:
+    enabled: true # Habilita a compressão de dados
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json,application/xml # Tipos MIME que serão comprimidos
+    min-response-size: 1024 # Tamanho mínimo da resposta para ser comprimida
+  http2:
+    enabled: true
+  port: 8080 # Porta onde a aplicação será executada
+  tomcat:
+    max-connections: 50000 # Número máximo de conexões simultâneas
+    threads.min-spare: 1000 # Número mínimo de threads ociosas
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/loja_virtual_database
+    url: jdbc:postgresql://localhost:5432/loja_virtual_database?autoreconnect=true
     username: docker
     password: docker
     driver-class-name: org.postgresql.Driver
-
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 20000 # Tempo máximo de espera para obter uma conexão do pool (millisegundos)
+      minimum-idle: 200 # Número mínimo de conexões ociosas no pool
+      maximum-pool-size: 550 # Número máximo de conexões no pool
+      idle-timeout: 1000 # Tempo máximo que uma conexão pode ficar ociosa no pool (millisegundos)
+      pool-name: PoolHikari# Nome do pool de conexões
+      auto-commit: false
+    dbcp2:
+      pool-prepared-statements: true # Habilita o uso de declarações preparadas no pool
+      max-open-prepared-statements: 550 # Número máximo de declarações preparadas abertas no pool
+  servlet:
+    multipart:
+      enabled: true # Habilita o upload de arquivos
+      max-file-size: 10MB # Tamanho máximo do arquivo para upload
+      max-request-size: 10MB # Tamanho máximo da requisição para upload de arquivos
+  transaction:
+    rollback-on-commit-failure: true
+  session:
+    jdbc.cleanup-cron: 0 0 0 4 * * * # Cron para limpeza de sessões JDBC
+  mvc:
+    static-path-pattern: /resources/static/** # Padrão de caminho para recursos estáticos
   jpa:
     #open-in-view: false
     show-sql: true
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp.use_jdbc_metadata_defaults: true # Controla se hibernate deve usar os metadados do JDBC para inferir configurações padrão de mapeamento e comportamento.
+        jdbc.batch_size: 4 # Tamanho do lote para operações de inserção em massa
+        order_inserts: true # Habilita a ordenação de inserções para otimizar o desempenho
+        order_updates: true # Habilita a ordenação de atualizações para otimizar o desempenho
